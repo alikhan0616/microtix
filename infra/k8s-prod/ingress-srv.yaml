@@ -4,8 +4,15 @@ metadata:
   name: ingress-service
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - www.microtix.space
+        - microtix.space
+      secretName: microtix-tls
   rules:
     - host: www.microtix.space
       http:
